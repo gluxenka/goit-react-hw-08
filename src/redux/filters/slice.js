@@ -14,6 +14,4 @@ const slice = createSlice({
 
 export const { changeFilter } = slice.actions;
 
-export const selectSearchTerm = (state) => state.filters.searchTerm;
-
 export default slice.reducer;

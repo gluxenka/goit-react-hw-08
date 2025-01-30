@@ -2,9 +2,10 @@ import { useId } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
+import { addContact } from "../../redux/contacts/operations";
 import css from "./ContactForm.module.css";
-import { addContact } from "../../redux/contactsOps.js";
 
 const CONTACT_FORM_INITIAL_VALUES = {
   name: "",
@@ -28,8 +29,15 @@ export default function ContactForm() {
   const nameId = useId();
   const numberId = useId();
   const handleSubmit = (values, actions) => {
-    dispatch(addContact({ ...values }));
-    actions.resetForm();
+    dispatch(addContact({ ...values }))
+      .unwrap()
+      .then((state) => {
+        toast.success(`Contact "${state.name}" successfully created`);
+        actions.resetForm();
+      })
+      .catch(() => {
+        toast.error("Unable to create contact");
+      });
   };
 
   return (
