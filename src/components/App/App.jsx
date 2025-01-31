@@ -1,14 +1,13 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
 
 import { selectIsRefreshing } from "../../redux/auth/selectors.js";
 import { refreshUser } from "../../redux/auth/operations.js";
 import RestrictedRoute from "../RestrictedRoute/RestrictedRoute.jsx";
 import PrivateRoute from "../PrivateRoute/PrivateRoute.jsx";
-import AppBar from "../AppBar/AppBar.jsx";
 import Loader from "../Loader/Loader.jsx";
+import { Layout } from "../Layout/Layout.jsx";
 
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const ContactsPage = lazy(
@@ -35,8 +34,7 @@ function App() {
   }
 
   return (
-    <Suspense fallback={<Loader />}>
-      <AppBar />
+    <Layout>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -62,8 +60,7 @@ function App() {
         />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      <Toaster />
-    </Suspense>
+    </Layout>
   );
 }
 
