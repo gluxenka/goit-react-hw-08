@@ -10,7 +10,7 @@ export const fetchContacts = createAsyncThunk(
       const response = await axios.get(`${CONTACTS_BASE_URL}`);
       return response.data;
     } catch (e) {
-      thunkAPI.rejectWithValue(e?.message || "Cannot fetch contacts");
+      return thunkAPI.rejectWithValue(e?.message || "Cannot fetch contacts");
     }
   },
 );
@@ -22,7 +22,7 @@ export const addContact = createAsyncThunk(
       const response = await axios.post(`${CONTACTS_BASE_URL}`, contact);
       return response.data;
     } catch (e) {
-      thunkAPI.rejectWithValue(e?.message || "Cannot add contact");
+      return thunkAPI.rejectWithValue(e?.message || "Cannot add contact");
     }
   },
 );
@@ -34,7 +34,7 @@ export const deleteContact = createAsyncThunk(
       const response = await axios.delete(`${CONTACTS_BASE_URL}/${id}`);
       return response.data;
     } catch (e) {
-      thunkAPI.rejectWithValue(e?.message || "Cannot delete contact");
+      return thunkAPI.rejectWithValue(e?.message || "Cannot delete contact");
     }
   },
 );
