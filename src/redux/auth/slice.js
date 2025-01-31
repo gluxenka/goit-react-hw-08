@@ -39,7 +39,10 @@ const slice = createSlice({
         state.isRefreshing = false;
       })
       .addCase(refreshUser.rejected, (state) => {
+        state.isLoggedIn = false;
         state.isRefreshing = false;
+        state.token = null;
+        state.user = { name: null, email: null };
       });
   },
 });
